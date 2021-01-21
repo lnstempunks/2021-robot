@@ -59,6 +59,18 @@ public class DriveLimeLight extends CommandBase {
 		m_drive.setLeft(m_leftCommand);
 		m_drive.setRight(m_rightCommand);
   }
+  
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void stopLimeLight() {
+ 
+
+
+		m_drive.setLeft(0);
+		m_drive.setRight(0);
+  }
+
+
 
   // Called once the command ends or is interrupted.
   @Override

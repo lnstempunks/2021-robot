@@ -117,6 +117,24 @@ public class RobotContainer {
 		new JoystickButton(joystick, 3).whenPressed(new RunCommand(() -> {
 			driveLimelight.execute();
 		}, drivetrain));
+
+		private RunCommand runLimelight = new RunCommand(() -> {
+			if (circle.get()) {
+				driveLimelight.execute();
+			} else {
+				driveLimelight.stopLimeLight();
+			}
+		}, driveLimelight);
+
+		private RunCommand runShooter = new RunCommand(() -> {
+			if (leftTrigger.get()) {
+				shooter.shoot(-0.75);
+			} else if (xbutton.get()) {
+				shooter.shootLimeLight();
+			} else {
+				shooter.stopShooting();
+			}
+		}, shooter);
 		
 		// Togle lights - BUTTON->
 		new JoystickButton(joystick, 13).whenPressed(new InstantCommand(() -> {
@@ -136,10 +154,11 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-	// drivetrain.setDefaultCommand(m_curvatureDrive);
+	drivetrain.setDefaultCommand(m_curvatureDrive);
 	// colorsensor.setDefaultCommand(colorSensor);
 	shooter.setDefaultCommand(runShooter);
 	// intake.setDefaultCommand(runBoth);
+	driveLimelight.setDefaultCommand(runLimelight);
 	index.setDefaultCommand(runIndexer);
 	}
   /**

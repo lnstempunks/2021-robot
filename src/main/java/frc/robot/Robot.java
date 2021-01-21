@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_compressor.start();
+    // m_compressor.start();
     m_limelight = NetworkTableInstance.getDefault().getTable("limelight");
   }
 
