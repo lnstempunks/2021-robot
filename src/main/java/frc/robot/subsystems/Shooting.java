@@ -44,6 +44,7 @@ public class Shooting extends SubsystemBase {
 	} else {
 		newSpeed = -0.56;
 	}
+	SmartDashboard.putNumber("shootSpeed", newSpeed);
 
 	m_shootMotor.set(newSpeed);
 	System.out.println(m_encoder.getVelocity());

@@ -43,6 +43,7 @@ public class RobotContainer {
 	public static Index index = new Index();
 	public static Intake intake = new Intake();
 	private DigitalInput m_limitSwitch = new DigitalInput(1);
+	private boolean limelightOn = false;
 
 	private boolean intakeOn = false;
 	// Controllers
@@ -60,7 +61,7 @@ public class RobotContainer {
 		if (slowTurn.get()) {
 			drivetrain.curvatureDrive(((joystick.getRawAxis(1)) / 3), ((joystick.getRawAxis(2)) / 3));
 		} else {
-			drivetrain.curvatureDrive(((joystick.getRawAxis(1)) / 1.2), ((joystick.getRawAxis(2) / 1.5)));
+			drivetrain.curvatureDrive(((joystick.getRawAxis(1)) / 1.5), ((joystick.getRawAxis(2) / 2.5)));
 		}
   }, drivetrain);
   
@@ -78,9 +79,9 @@ public class RobotContainer {
   
   private RunCommand runShooter = new RunCommand(() -> {
 		if (leftTrigger.get()) {
-			shooter.shoot(-0.75);
-		} else if (xbutton.get()) {
 			shooter.shootLimeLight();
+		} else if (xbutton.get()) {
+			shooter.shoot(-0.75);
 		} else {
 			shooter.stopShooting();
 		}
@@ -114,27 +115,16 @@ public class RobotContainer {
     }, intake, index));
     
 		//A (on Xbox) - BUTTON->
-		new JoystickButton(joystick, 3).whenPressed(new RunCommand(() -> {
-			driveLimelight.execute();
-		}, drivetrain));
-
-		private RunCommand runLimelight = new RunCommand(() -> {
-			if (circle.get()) {
+		new JoystickButton(joystick, 3).toggleWhenPressed(new RunCommand(() -> {
+			if (limelightOn == false){
+				limelightOn = true;
 				driveLimelight.execute();
 			} else {
+				limelightOn = false;
 				driveLimelight.stopLimeLight();
 			}
-		}, driveLimelight);
+		}, drivetrain));
 
-		private RunCommand runShooter = new RunCommand(() -> {
-			if (leftTrigger.get()) {
-				shooter.shoot(-0.75);
-			} else if (xbutton.get()) {
-				shooter.shootLimeLight();
-			} else {
-				shooter.stopShooting();
-			}
-		}, shooter);
 		
 		// Togle lights - BUTTON->
 		new JoystickButton(joystick, 13).whenPressed(new InstantCommand(() -> {
@@ -158,7 +148,7 @@ public class RobotContainer {
 	// colorsensor.setDefaultCommand(colorSensor);
 	shooter.setDefaultCommand(runShooter);
 	// intake.setDefaultCommand(runBoth);
-	driveLimelight.setDefaultCommand(runLimelight);
+	// driveLimelight.setDefaultCommand(runLimelight);
 	index.setDefaultCommand(runIndexer);
 	}
   /**

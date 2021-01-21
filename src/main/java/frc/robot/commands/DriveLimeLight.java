@@ -47,8 +47,10 @@ public class DriveLimeLight extends CommandBase {
   @Override
   public void execute() {
     double tx = m_limelight.getEntry("tx").getDouble(0);
+    double ty = m_limelight.getEntry("ty").getDouble(0);
 
-		double aimAdjust = tx/3 * Constants.Limelight.kPAngle;
+    double aimAdjust = tx/3 * Constants.Limelight.kPAngle;
+    double driveAdjust = tx/3 * Constants.Limelight.kPDistance;
 		// Still needs to get target area
 		m_rightCommand = aimAdjust*-1; 
 		m_leftCommand =  aimAdjust*-1;
@@ -59,13 +61,8 @@ public class DriveLimeLight extends CommandBase {
 		m_drive.setLeft(m_leftCommand);
 		m_drive.setRight(m_rightCommand);
   }
-  
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
+
   public void stopLimeLight() {
- 
-
-
 		m_drive.setLeft(0);
 		m_drive.setRight(0);
   }
