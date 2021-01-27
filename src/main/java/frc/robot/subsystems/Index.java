@@ -20,7 +20,7 @@ public class Index extends SubsystemBase {
 	m_indexer = new Spark(Constants.Intake.kmIndexer);
   }
   public void reverse() {
-	m_indexer.set(-1);
+	m_indexer.set(1);
 	}
 	/**
 	 * EXPERIMENTAL:
@@ -36,7 +36,7 @@ public class Index extends SubsystemBase {
 	 * Motor alignment has not yet been determined.
 	 */
 	public void runIndexer() {
-		m_indexer.set(1);
+		m_indexer.set(-1);
 	}
   @Override
   public void periodic() {

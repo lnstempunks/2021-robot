@@ -18,6 +18,7 @@ import frc.robot.subsystems.Shooting;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveLimeLight;
+import frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -56,6 +57,7 @@ public class RobotContainer {
 	// public static DriveToDistance driveToDistance = new DriveToDistance(10,
 	// drivetrain);
 	public static DriveLimeLight driveLimelight = new DriveLimeLight(drivetrain);
+	public static AutoCommands autoCommands = new AutoCommands(drivetrain);
 
   private RunCommand m_curvatureDrive = new RunCommand(() -> {
 		if (slowTurn.get()) {
@@ -114,8 +116,8 @@ public class RobotContainer {
 
     }, intake, index));
     
-		//A (on Xbox) - BUTTON->
-		new JoystickButton(joystick, 3).toggleWhenPressed(new RunCommand(() -> {
+		// X (on ps4) -
+		new JoystickButton(joystick, 1).toggleWhenPressed(new RunCommand(() -> {
 			if (limelightOn == false){
 				limelightOn = true;
 				driveLimelight.execute();
@@ -125,6 +127,13 @@ public class RobotContainer {
 			}
 		}, drivetrain));
 
+		new JoystickButton(joystick, 12).whenPressed(new RunCommand(() -> {                         // Radius, degrees
+			autoCommands.turnWithRadius(65, 170);
+		}, drivetrain));
+
+		new JoystickButton(joystick, 12).whenReleased(new RunCommand(() -> {    
+			autoCommands.stopMoving();
+		}, drivetrain));
 		
 		// Togle lights - BUTTON->
 		new JoystickButton(joystick, 13).whenPressed(new InstantCommand(() -> {
@@ -139,7 +148,6 @@ public class RobotContainer {
 			} else {
 				ledMode.setDouble(1); // Force OFF by default
 			}
-
 		}));
   }
 
