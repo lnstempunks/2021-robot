@@ -69,11 +69,10 @@ public class RobotContainer {
   
   private RunCommand runIndexer = new RunCommand(() -> {
 		rightTrigger.whenReleased(new InstantCommand(() -> index.stopIndexer(), index));
-		if (circle.get()) {
-			index.reverse();
-		}
 		if (rightTrigger.get()) {
 			index.runIndexer();
+		} else if (circle.get()) {
+			index.reverse();
 		} else if (m_limitSwitch.get()) {
 			index.stopIndexer();
 		}

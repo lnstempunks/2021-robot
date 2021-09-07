@@ -19,8 +19,8 @@ public class Index extends SubsystemBase {
   public Index() {
 	m_indexer = new Spark(Constants.Intake.kmIndexer);
   }
-  public void reverse() {
-	m_indexer.set(1);
+  	public void reverse() {
+		m_indexer.set(1);
 	}
 	/**
 	 * EXPERIMENTAL:
